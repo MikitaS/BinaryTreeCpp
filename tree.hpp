@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <fstream>
 
 struct TreeElement
 {
@@ -39,10 +40,13 @@ public:
 	
 	/*return link to a data of current element*/
 	std::string & data(); //done
+	
+	void to_file(std::string filename);
 
 private:
 	/*delete tree starting from pointer*/
 	void delete_tree(TreeElement * first); //done
+	void dump(TreeElement * first, std::ofstream & dumpfile);
 
 	TreeElement * head_;
 	TreeElement * current_;

@@ -1,6 +1,7 @@
 #include <string>
 #include <iostream>
 #include "tree.hpp"
+#include <fstream>
 
 ///Constructors and destructor:
 
@@ -124,4 +125,35 @@ std::string & tree::data()
 	return current_->data_;
 }
 
+void tree::to_file(std::string filename)
+{
+	std::ofstream dumpfile(filename);
+	
+	this->dump(head_, dumpfile);
+	
+	dumpfile.close();
+}
 
+void tree::dump(TreeElement * first, std::ofstream & dumpfile)
+{
+	dumpfile << first -> data_;
+	
+	if(!(first->left_ || first->right_))
+		return;
+		
+	dumpfile << " ( ";
+	
+	if(first->left_)
+	{
+		this->dump(first -> left_, dumpfile);
+	}
+	
+	dumpfile << " , ";
+	
+	if(first->right_)
+	{
+		this->dump(first->right_, dumpfile);
+	}
+	
+	dumpfile << " ) ";
+}
